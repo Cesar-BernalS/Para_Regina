@@ -1,0 +1,368 @@
+/* ============================================
+   CONFIGURACIÓN GENERAL Y RESET
+   ============================================ */
+
+/* Reset básico para asegurar consistencia entre navegadores */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Variables CSS para colores y estilos principales */
+/* CAMBIAR: Puedes modificar estos colores para personalizar el diseño */
+:root {
+    --color-principal: #d4a5a5;        /* Color principal romántico (rosa suave) */
+    --color-secundario: #f5e6e6;      /* Color secundario (rosa muy claro) */
+    --color-texto: #4a4a4a;           /* Color del texto principal */
+    --color-texto-claro: #666666;     /* Color del texto secundario */
+    --color-fondo: #ffffff;            /* Color de fondo principal */
+    --color-fondo-alternado: #fafafa; /* Color de fondo alternado */
+    --fuente-titulo: 'Georgia', serif; /* Fuente para títulos (serif elegante) */
+    --fuente-texto: 'Arial', sans-serif; /* Fuente para textos */
+}
+
+/* Estilos del cuerpo de la página */
+body {
+    font-family: var(--fuente-texto);
+    color: var(--color-texto);
+    line-height: 1.8;
+    background-color: var(--color-fondo);
+    /* Suaviza el renderizado de fuentes */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Contenedor principal para centrar el contenido */
+.contenedor {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ============================================
+   PORTADA - Sección inicial
+   ============================================ */
+
+.portada {
+    /* Altura completa de la pantalla en desktop */
+    min-height: 100vh;
+    /* Centra el contenido verticalmente */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Fondo con gradiente suave */
+    background: linear-gradient(135deg, var(--color-secundario) 0%, var(--color-principal) 100%);
+    /* Padding para evitar que el texto toque los bordes */
+    padding: 40px 20px;
+    /* Centra el texto */
+    text-align: center;
+}
+
+.portada-contenido {
+    /* Animación suave al cargar */
+    animation: fadeInUp 1s ease-out;
+}
+
+/* Título principal de la portada */
+.titulo-principal {
+    font-family: var(--fuente-titulo);
+    font-size: 3.5rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+    /* Sombra suave para legibilidad */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    font-weight: normal;
+    letter-spacing: 2px;
+}
+
+/* Frase corta de la portada */
+.frase-portada {
+    font-size: 1.3rem;
+    color: #ffffff;
+    font-style: italic;
+    /* Opacidad ligeramente reducida para efecto elegante */
+    opacity: 0.95;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ============================================
+   SECCIONES PRINCIPALES
+   ============================================ */
+
+.seccion {
+    /* Padding vertical generoso para espaciado */
+    padding: 80px 0;
+    background-color: var(--color-fondo);
+}
+
+/* Sección con fondo alternado para crear contraste visual */
+.seccion-alternada {
+    background-color: var(--color-fondo-alternado);
+}
+
+/* Título de cada sección */
+.titulo-seccion {
+    font-family: var(--fuente-titulo);
+    font-size: 2.5rem;
+    color: var(--color-principal);
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: normal;
+    letter-spacing: 1px;
+}
+
+/* ============================================
+   CONTENEDOR DE IMÁGENES
+   ============================================ */
+
+.imagen-contenedor {
+    /* Centra la imagen */
+    text-align: center;
+    margin: 40px 0;
+    /* Bordes redondeados suaves */
+    border-radius: 10px;
+    /* Sombra suave para profundidad */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    /* Evita que la imagen se desborde */
+    overflow: hidden;
+    background-color: var(--color-secundario);
+    padding: 10px;
+}
+
+/* Estilos de las imágenes */
+.imagen-seccion {
+    /* Ancho máximo para que no se vean demasiado grandes */
+    max-width: 100%;
+    height: auto;
+    /* Bordes redondeados */
+    border-radius: 8px;
+    /* Transición suave al hacer hover (en desktop) */
+    transition: transform 0.3s ease;
+    /* Display block para evitar espacios extraños */
+    display: block;
+    margin: 0 auto;
+}
+
+/* Efecto hover en desktop (solo funciona con mouse) */
+@media (hover: hover) {
+    .imagen-seccion:hover {
+        transform: scale(1.02);
+    }
+}
+
+/* ============================================
+   TEXTOS DE LAS SECCIONES
+   ============================================ */
+
+.texto-seccion {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    color: var(--color-texto);
+    text-align: justify;
+    /* Padding horizontal para mejor legibilidad */
+    padding: 0 10px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Fechas importantes destacadas */
+.fecha-importante {
+    font-size: 1rem;
+    color: var(--color-principal);
+    font-weight: bold;
+    text-align: center;
+    margin-top: 25px;
+    font-style: italic;
+    letter-spacing: 1px;
+}
+
+/* ============================================
+   SECCIÓN FINAL
+   ============================================ */
+
+.seccion-final {
+    /* Padding extra para la sección final */
+    padding: 100px 0;
+    /* Fondo con gradiente para destacar */
+    background: linear-gradient(135deg, var(--color-principal) 0%, var(--color-secundario) 100%);
+    text-align: center;
+}
+
+.titulo-final {
+    font-family: var(--fuente-titulo);
+    font-size: 2.8rem;
+    color: #ffffff;
+    margin-bottom: 40px;
+    font-weight: normal;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mensaje-final {
+    font-size: 1.2rem;
+    color: #ffffff;
+    line-height: 2;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Firma al final del mensaje */
+.firma {
+    margin-top: 40px;
+    font-size: 1.1rem;
+    font-style: italic;
+    opacity: 0.95;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.footer {
+    background-color: var(--color-texto);
+    color: #ffffff;
+    padding: 30px 0;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+/* ============================================
+   ANIMACIONES
+   ============================================ */
+
+/* Animación de entrada suave para la portada */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   DISEÑO RESPONSIVE - TABLET
+   ============================================ */
+
+@media screen and (max-width: 768px) {
+    /* Título principal más pequeño en tablet */
+    .titulo-principal {
+        font-size: 2.8rem;
+    }
+    
+    /* Frase de portada más pequeña */
+    .frase-portada {
+        font-size: 1.1rem;
+    }
+    
+    /* Títulos de sección más pequeños */
+    .titulo-seccion {
+        font-size: 2rem;
+    }
+    
+    /* Título final más pequeño */
+    .titulo-final {
+        font-size: 2.2rem;
+    }
+    
+    /* Padding reducido en secciones */
+    .seccion {
+        padding: 60px 0;
+    }
+    
+    .seccion-final {
+        padding: 80px 0;
+    }
+}
+
+/* ============================================
+   DISEÑO RESPONSIVE - CELULAR
+   ============================================ */
+
+@media screen and (max-width: 480px) {
+    /* Título principal aún más pequeño en celular */
+    .titulo-principal {
+        font-size: 2rem;
+        letter-spacing: 1px;
+    }
+    
+    /* Frase de portada más pequeña */
+    .frase-portada {
+        font-size: 1rem;
+        padding: 0 10px;
+    }
+    
+    /* Títulos de sección más pequeños */
+    .titulo-seccion {
+        font-size: 1.6rem;
+        padding: 0 15px;
+    }
+    
+    /* Título final más pequeño */
+    .titulo-final {
+        font-size: 1.8rem;
+    }
+    
+    /* Texto de secciones más pequeño */
+    .texto-seccion {
+        font-size: 1rem;
+        text-align: left;
+        padding: 0 5px;
+    }
+    
+    /* Mensaje final más pequeño */
+    .mensaje-final {
+        font-size: 1rem;
+    }
+    
+    /* Padding reducido en secciones */
+    .seccion {
+        padding: 50px 0;
+    }
+    
+    .seccion-final {
+        padding: 60px 0;
+    }
+    
+    /* Contenedor con menos padding en móvil */
+    .contenedor {
+        padding: 0 15px;
+    }
+    
+    /* Imágenes con menos margen en móvil */
+    .imagen-contenedor {
+        margin: 30px 0;
+        padding: 5px;
+    }
+}
+
+/* ============================================
+   MEJORAS ADICIONALES
+   ============================================ */
+
+/* Selección de texto personalizada */
+::selection {
+    background-color: var(--color-principal);
+    color: #ffffff;
+}
+
+/* Estilo para enlaces (si decides agregar algunos) */
+a {
+    color: var(--color-principal);
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+a:hover {
+    opacity: 0.7;
+}
+
+/* Suaviza el scroll en navegadores que lo soporten */
+html {
+    scroll-behavior: smooth;
+}

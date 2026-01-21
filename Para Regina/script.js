@@ -1,5 +1,5 @@
 /* ============================================
-   CONFIGURACIÓN INICIAL
+CONFIGURACIÓN INICIAL
    ============================================ */
 
 // Obtiene el elemento del carrusel
@@ -17,6 +17,12 @@ let isInLanding = true;
 // Variable para prevenir múltiples eventos de scroll muy rápidos
 let scrollTimeout = null;
 
+// Variable para almacenar la historia activa actual
+let activeStoryId = null;
+
+// Variable para almacenar la posición del scroll antes de entrar a una historia
+let scrollPositionBeforeStory = 0;
+
 // Número total de imágenes en el carrusel
 const totalItems = carouselItems.length;
 
@@ -24,7 +30,7 @@ const totalItems = carouselItems.length;
 const angleBetweenItems = 360 / totalItems;
 
 /* ============================================
-   FUNCIÓN: Obtener radio del carrusel
+FUNCIÓN: Obtener radio del carrusel
    ============================================ */
 
 /**
@@ -45,7 +51,7 @@ function getCarouselRadius() {
 }
 
 /* ============================================
-   FUNCIÓN: Posicionar imágenes en el círculo
+FUNCIÓN: Posicionar imágenes en el círculo
    ============================================ */
 
 /**
@@ -72,6 +78,9 @@ function positionCarouselItems() {
         // Calcula el ángulo de rotación compensatorio para que la imagen mire hacia el centro
         const itemRotation = baseAngle - rotationAngle;
 
+        // Aplica transición suave a cada imagen individual
+        item.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+
         // Aplica la transformación para posicionar la imagen
         // translate() mueve la imagen a su posición en el círculo
         // rotate() la rota para que siempre mire hacia el centro
@@ -80,7 +89,7 @@ function positionCarouselItems() {
 }
 
 /* ============================================
-   FUNCIÓN: Rotar el carrusel
+FUNCIÓN: Rotar el carrusel
    ============================================ */
 
 /**
@@ -100,7 +109,7 @@ function rotateCarousel(angle) {
 }
 
 /* ============================================
-   FUNCIÓN: Detectar scroll del mouse
+FUNCIÓN: Detectar scroll del mouse
    ============================================ */
 
 /**
@@ -127,8 +136,8 @@ function handleScroll(event) {
     const deltaY = event.deltaY;
 
     // Calcula el ángulo de rotación basado en el scroll
-    // Ajusta este valor para hacer la rotación más rápida o más lenta
-    const rotationSpeed = 1.5; // Grados por unidad de scroll
+    // Velocidad más lenta y romántica (reducida para un movimiento más suave)
+    const rotationSpeed = 10; // Grados por unidad de scroll 
 
     // Determina la dirección de la rotación
     // Scroll hacia abajo = rotación en sentido horario (positivo)
@@ -145,12 +154,159 @@ function handleScroll(event) {
 }
 
 /* ============================================
+   FUNCIÓN: Rotar imagen seleccionada hacia arriba
+   ============================================ */
+
+/**
+ * Esta función rota el carrusel para que la imagen seleccionada quede arriba (centro superior).
+ * @param {number} itemIndex - El índice de la imagen seleccionada
+ */
+function rotateSelectedItemToTop(itemIndex) {
+    // Calcula el ángulo actual de la imagen seleccionada
+    const currentAngle = itemIndex * angleBetweenItems;
+    
+    // Queremos que la imagen quede arriba, que es -90 grados desde el centro
+    // (en un círculo, arriba es -90 grados, abajo es 90 grados)
+    const targetAngle = -90;
+    
+    // Calcula cuánto necesitamos rotar el carrusel
+    // Restamos el ángulo actual y sumamos el ángulo objetivo
+    const rotationNeeded = targetAngle - currentAngle;
+    
+    // Actualiza el ángulo de rotación
+    rotationAngle = rotationAngle + rotationNeeded;
+    
+    // Aplica la rotación con una transición suave
+    carouselWheel.style.transition = 'transform 1s cubic-bezier(0.4, 0, 0.2, 1)';
+    carouselWheel.style.transform = `rotate(${rotationAngle}deg)`;
+    
+    // Reposiciona todas las imágenes con la nueva rotación
+    positionCarouselItems();
+    
+    // Restaura la transición normal después de la animación
+    setTimeout(() => {
+        carouselWheel.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+    }, 1000);
+}
+
+/* ============================================
+   FUNCIÓN: Bloquear scroll de la página
+   ============================================ */
+
+/**
+ * Esta función bloquea el scroll de la página principal.
+ * Se llama cuando se entra a una historia para crear una experiencia cerrada.
+ */
+function lockPageScroll() {
+    // Guarda la posición actual del scroll antes de bloquearlo
+    scrollPositionBeforeStory = window.scrollY || window.pageYOffset;
+    
+    // BLOQUEA EL SCROLL: Agrega clase al body que bloquea el overflow
+    document.body.classList.add('scroll-locked');
+    
+    // También establece overflow hidden directamente como respaldo
+    document.body.style.overflow = 'hidden';
+    
+    // Previene scroll en móviles guardando la posición
+    document.body.style.top = `-${scrollPositionBeforeStory}px`;
+    
+    console.log('Scroll bloqueado - Entrando a historia');
+}
+
+/* ============================================
+   FUNCIÓN: Desbloquear scroll de la página
+   ============================================ */
+
+/**
+ * Esta función restaura el scroll de la página principal.
+ * Se llama cuando se sale de una historia.
+ */
+function unlockPageScroll() {
+    // DESBLOQUEA EL SCROLL: Remueve la clase del body
+    document.body.classList.remove('scroll-locked');
+    
+    // Restaura el overflow normal
+    document.body.style.overflow = '';
+    
+    // Restaura la posición del scroll en desktop
+    window.scrollTo(0, scrollPositionBeforeStory);
+    
+    // Restaura la posición top en móviles
+    document.body.style.top = '';
+    
+    console.log('Scroll desbloqueado - Saliendo de historia');
+}
+
+/* ============================================
+   FUNCIÓN: Mostrar historia específica
+   ============================================ */
+
+/**
+ * Esta función muestra solo la historia seleccionada y oculta todas las demás.
+ * @param {string} storyId - El ID de la historia a mostrar
+ */
+function showStory(storyId) {
+    // Obtiene todas las secciones de historias
+    const allStories = document.querySelectorAll('.story-section');
+    
+    // Oculta todas las historias primero
+    allStories.forEach(story => {
+        story.classList.remove('story-active');
+        story.classList.add('story-hidden');
+    });
+    
+    // Encuentra la historia seleccionada
+    const selectedStory = document.getElementById(storyId);
+    
+    if (selectedStory) {
+        // Muestra solo la historia seleccionada
+        selectedStory.classList.remove('story-hidden');
+        selectedStory.classList.add('story-active');
+        
+        // Guarda el ID de la historia activa
+        activeStoryId = storyId;
+        
+        // Hace scroll al inicio de la historia (dentro del overlay)
+        setTimeout(() => {
+            selectedStory.scrollTop = 0;
+        }, 100);
+        
+        console.log(`Historia activa: ${storyId}`);
+    } else {
+        console.warn(`No se encontró la historia con id: ${storyId}`);
+    }
+}
+
+/* ============================================
+   FUNCIÓN: Ocultar todas las historias
+   ============================================ */
+
+/**
+ * Esta función oculta todas las historias y vuelve al carrusel.
+ */
+function hideAllStories() {
+    // Obtiene todas las secciones de historias
+    const allStories = document.querySelectorAll('.story-section');
+    
+    // Oculta todas las historias
+    allStories.forEach(story => {
+        story.classList.remove('story-active');
+        story.classList.add('story-hidden');
+    });
+    
+    // Limpia la historia activa
+    activeStoryId = null;
+    
+    console.log('Todas las historias ocultas - Volviendo al carrusel');
+}
+
+/* ============================================
    FUNCIÓN: Detectar click en imágenes
    ============================================ */
 
 /**
  * Esta función detecta cuando el usuario hace click en una imagen del carrusel
- * y navega a la historia correspondiente.
+ * y abre la historia correspondiente en modo overlay fullscreen.
  */
 function handleImageClick(event) {
     // Obtiene el elemento que fue clickeado
@@ -165,27 +321,25 @@ function handleImageClick(event) {
         return;
     }
 
-    // Encuentra la sección de la historia correspondiente
-    const storySection = document.getElementById(storyId);
-
-    // Si la sección existe, navega a ella
-    if (storySection) {
-        // Cambia el estado para indicar que ya no estamos en el landing
-        isInLanding = false;
-
-        // Navega suavemente a la sección de la historia
-        storySection.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
-
-        // Después de un tiempo, permite volver a detectar si estamos en el landing
-        setTimeout(() => {
-            checkIfInLanding();
-        }, 1000);
-    } else {
-        console.warn(`No se encontró la sección con id: ${storyId}`);
+    // Encuentra el índice de la imagen clickeada
+    const itemIndex = Array.from(carouselItems).indexOf(clickedItem);
+    
+    // Rota el carrusel para que la imagen seleccionada quede arriba
+    if (itemIndex !== -1) {
+        rotateSelectedItemToTop(itemIndex);
     }
+
+    // Cambia el estado para indicar que ya no estamos en el landing
+    isInLanding = false;
+
+    // Espera un momento para que la rotación se complete antes de abrir la historia
+    setTimeout(() => {
+        // BLOQUEA EL SCROLL DE LA PÁGINA PRINCIPAL
+        lockPageScroll();
+        
+        // MUESTRA SOLO LA HISTORIA SELECCIONADA (oculta las demás)
+        showStory(storyId);
+    }, 500);
 }
 
 /* ============================================
@@ -218,10 +372,40 @@ function checkIfInLanding() {
 /**
  * Esta función maneja el scroll general de la página.
  * Se usa para detectar cuando el usuario vuelve al landing.
+ * NOTA: Esta función NO se ejecuta cuando hay una historia activa
+ * porque el scroll está bloqueado.
  */
 function handlePageScroll() {
-    // Verifica si estamos en el landing
-    checkIfInLanding();
+    // Solo verifica si estamos en el landing si NO hay una historia activa
+    // Si hay una historia activa, el scroll está bloqueado y no deberíamos estar aquí
+    if (!activeStoryId) {
+        checkIfInLanding();
+    }
+}
+
+/* ============================================
+   FUNCIÓN: Volver al carrusel
+   ============================================ */
+
+/**
+ * Esta función cierra la historia actual y vuelve al carrusel.
+ * DESBLOQUEA EL SCROLL y oculta todas las historias.
+ * Se llama cuando el usuario hace click en el botón "Volver al carrusel".
+ */
+function goBackToCarousel() {
+    // OCULTA TODAS LAS HISTORIAS (incluyendo la activa)
+    hideAllStories();
+    
+    // DESBLOQUEA EL SCROLL DE LA PÁGINA PRINCIPAL
+    unlockPageScroll();
+    
+    // Actualiza el estado para indicar que estamos de vuelta en el landing
+    isInLanding = true;
+    
+    // Opcional: Scroll suave de vuelta al inicio si es necesario
+    // (No es necesario porque el scroll ya está restaurado a su posición anterior)
+    
+    console.log('Volviendo al carrusel - Scroll restaurado');
 }
 
 /* ============================================
@@ -244,6 +428,15 @@ function init() {
         return;
     }
 
+    // INICIALIZACIÓN: Oculta todas las historias por defecto
+    // Esto asegura que solo el carrusel sea visible al cargar la página
+    const allStories = document.querySelectorAll('.story-section');
+    allStories.forEach(story => {
+        story.classList.add('story-hidden');
+        story.classList.remove('story-active');
+    });
+    console.log(`Inicializadas ${allStories.length} historias (ocultas por defecto)`);
+
     // Posiciona las imágenes en el círculo inicial
     positionCarouselItems();
 
@@ -261,13 +454,18 @@ function init() {
     });
 
     // Agrega el evento de scroll de la página para detectar cuando volvemos al landing
+    // Nota: Este evento solo funcionará cuando no haya una historia activa
     window.addEventListener('scroll', handlePageScroll);
 
     // Verifica el estado inicial
     checkIfInLanding();
 
+    // Asegura que el scroll no esté bloqueado al inicio
+    unlockPageScroll();
+
     // Log para confirmar que todo se inicializó correctamente
     console.log(`Carrusel inicializado con ${totalItems} imágenes`);
+    console.log('Sistema de historias independientes activo');
 }
 
 /* ============================================

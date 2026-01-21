@@ -37,6 +37,18 @@ body {
     scroll-behavior: smooth;
     /* Evita el scroll horizontal */
     overflow-x: hidden;
+    /* Transición suave para cambios de overflow */
+    transition: overflow 0.3s ease;
+}
+
+/* Clase para cuando el scroll está bloqueado (historia activa) */
+body.scroll-locked {
+    /* BLOQUEA EL SCROLL DE LA PÁGINA PRINCIPAL */
+    overflow: hidden;
+    /* Previene scroll en móviles también */
+    position: fixed;
+    width: 100%;
+    height: 100%;
 }
 
 /* ============================================
@@ -116,8 +128,8 @@ body {
     position: relative;
     width: calc(var(--radio-carrusel) * 2);
     height: calc(var(--radio-carrusel) * 2);
-    /* Transición suave para la rotación */
-    transition: transform 0.1s ease-out;
+    /* Transición más suave y romántica para la rotación */
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     /* Permite interacción con las imágenes */
     pointer-events: auto;
     /* Asegura que el carrusel esté centrado */
@@ -138,12 +150,13 @@ body {
     transform-origin: center center;
     /* Cursor pointer para indicar que es clickeable */
     cursor: pointer;
-    /* Transición suave para efectos hover */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Transición más suave y romántica para efectos hover */
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     /* Bordes redondeados */
     border-radius: 10px;
-    /* Sombra inicial */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    /* Sombra inicial más suave */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     /* Evita que la imagen se desborde */
     overflow: hidden;
     /* Fondo mientras carga la imagen */
@@ -161,19 +174,20 @@ body {
     display: block;
 }
 
-/* Efecto hover en las imágenes del carrusel */
+/* Efecto hover en las imágenes del carrusel - más suave y romántico */
 .carousel-item:hover {
-    /* Escala la imagen al hacer hover */
-    transform: scale(1.15);
-    /* Sombra más pronunciada */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    /* Escala la imagen al hacer hover de forma más suave */
+    transform: scale(1.12);
+    /* Sombra más pronunciada pero suave */
+    box-shadow: 0 10px 30px rgba(212, 165, 165, 0.4);
     /* Z-index más alto para que aparezca por encima */
     z-index: 100;
 }
 
 /* Efecto adicional en la imagen al hacer hover */
 .carousel-item:hover .carousel-image {
-    transform: scale(1.05);
+    transform: scale(1.03);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ============================================
@@ -187,6 +201,41 @@ body {
     background-color: var(--color-fondo);
     /* Scroll suave al navegar */
     scroll-margin-top: 0;
+    /* Por defecto, las historias están ocultas */
+    display: none;
+    /* Posición fija para crear overlay fullscreen */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    /* Z-index alto para estar sobre todo */
+    z-index: 1000;
+    /* Overflow para permitir scroll interno */
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* Fondo con opacidad para efecto overlay */
+    background-color: var(--color-fondo);
+    /* Animación suave al aparecer */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Clase para historia activa (visible) */
+.story-section.story-active {
+    /* Muestra la historia */
+    display: block;
+    /* Opacidad completa */
+    opacity: 1;
+    /* Animación de entrada */
+    animation: fadeInStory 0.5s ease-in-out;
+}
+
+/* Clase para historias ocultas (no activas) */
+.story-section.story-hidden {
+    /* Oculta completamente */
+    display: none;
+    opacity: 0;
 }
 
 /* Sección con fondo alternado para crear contraste */
@@ -194,11 +243,29 @@ body {
     background-color: var(--color-fondo-alternado);
 }
 
+/* Animación de entrada para historias */
+@keyframes fadeInStory {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* Contenedor de cada historia */
 .story-container {
     max-width: 900px;
     margin: 0 auto;
-    padding: 0 30px;
+    padding: 40px 30px;
+    /* Altura mínima para asegurar scroll interno si es necesario */
+    min-height: 100vh;
+    /* Padding superior extra para espaciado */
+    padding-top: 60px;
+    /* Padding inferior para asegurar que el contenido no quede cortado */
+    padding-bottom: 80px;
 }
 
 /* Título de cada historia */
@@ -272,6 +339,57 @@ body {
     margin-top: 40px;
     font-style: italic;
     letter-spacing: 1px;
+}
+
+/* Contenedor del botón de volver */
+.story-back-button-container {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    /* Asegura que el botón sea siempre visible */
+    position: relative;
+    z-index: 1001;
+}
+
+/* Botón para volver al carrusel */
+.story-back-button {
+    background: linear-gradient(135deg, var(--color-principal) 0%, var(--color-secundario) 100%);
+    color: #ffffff;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-family: var(--fuente-texto);
+    border-radius: 25px;
+    cursor: pointer;
+    /* Transición suave y romántica */
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Sombra suave */
+    box-shadow: 0 4px 15px rgba(212, 165, 165, 0.3);
+    /* Espaciado de letras */
+    letter-spacing: 1px;
+    font-weight: 500;
+    /* Posición relativa para mantenerlo en el flujo del documento */
+    position: relative;
+    /* Z-index alto para estar siempre visible */
+    z-index: 1001;
+    /* Display inline-block para mejor control */
+    display: inline-block;
+}
+
+/* Efecto hover en el botón */
+.story-back-button:hover {
+    /* Escala ligeramente el botón */
+    transform: translateY(-2px) scale(1.05);
+    /* Sombra más pronunciada */
+    box-shadow: 0 6px 20px rgba(212, 165, 165, 0.4);
+    /* Fondo más intenso */
+    background: linear-gradient(135deg, #c89595 0%, #f0d8d8 100%);
+}
+
+/* Efecto activo (al hacer click) */
+.story-back-button:active {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 2px 10px rgba(212, 165, 165, 0.3);
 }
 
 /* ============================================

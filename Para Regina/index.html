@@ -83,6 +83,11 @@
                         <!-- CAMBIA ESTA IMAGEN -->
                     </div>
 
+                    <div class="carousel-item" data-story="historia7">
+                        <img src="imagenes/foto7.jpg" alt="Historia 7" class="carousel-image">
+                        <!-- CAMBIA ESTA IMAGEN -->
+                    </div>
+
                     <!-- 
                         PARA AGREGAR MÁS IMÁGENES:
                         Copia el bloque completo de .carousel-item (desde <div hasta </div>)
@@ -100,6 +105,19 @@
     <!-- ============================================
         HISTORIA 1
         Esta historia se abre al hacer click en la primera imagen del carrusel
+        
+        NOTA IMPORTANTE SOBRE CÓMO FUNCIONAN LAS HISTORIAS:
+        - Cada historia se muestra como un overlay fullscreen cuando está activa
+        - El scroll de la página principal se BLOQUEA cuando se entra a una historia
+        - Solo la historia activa es visible, las demás están ocultas
+        - El usuario puede hacer scroll SOLO dentro de la historia activa
+        - Para salir, debe usar el botón "Volver al carrusel"
+        
+        PARA AGREGAR UNA NUEVA HISTORIA:
+        1. Copia una sección completa de historia (desde <section> hasta </section>)
+        2. Cambia el id (ej: id="historia8")
+        3. Agrega una imagen al carrusel con data-story="historia8"
+        4. El sistema automáticamente la ocultará por defecto
         ============================================ -->
     <section class="story-section" id="historia1">
         <div class="story-container">
@@ -143,6 +161,13 @@
             <div class="story-date">
                 [Fecha: DD de Mes de Año]
             </div>
+
+            <!-- Botón para volver al carrusel -->
+            <div class="story-back-button-container">
+                <button class="story-back-button" onclick="goBackToCarousel()">
+                    ← Volver al carrusel
+                </button>
+            </div>
         </div>
     </section>
 
@@ -168,6 +193,13 @@
 
             <div class="story-date">
                 [Fecha: DD de Mes de Año]
+            </div>
+
+            <!-- Botón para volver al carrusel -->
+            <div class="story-back-button-container">
+                <button class="story-back-button" onclick="goBackToCarousel()">
+                    ← Volver al carrusel
+                </button>
             </div>
         </div>
     </section>
@@ -195,6 +227,13 @@
             <div class="story-date">
                 [Fecha: DD de Mes de Año]
             </div>
+
+            <!-- Botón para volver al carrusel -->
+            <div class="story-back-button-container">
+                <button class="story-back-button" onclick="goBackToCarousel()">
+                    ← Volver al carrusel
+                </button>
+            </div>
         </div>
     </section>
 
@@ -220,6 +259,13 @@
 
             <div class="story-date">
                 [Fecha: DD de Mes de Año]
+            </div>
+
+            <!-- Botón para volver al carrusel -->
+            <div class="story-back-button-container">
+                <button class="story-back-button" onclick="goBackToCarousel()">
+                    ← Volver al carrusel
+                </button>
             </div>
         </div>
     </section>
@@ -247,6 +293,13 @@
             <div class="story-date">
                 [Fecha: DD de Mes de Año]
             </div>
+
+            <!-- Botón para volver al carrusel -->
+            <div class="story-back-button-container">
+                <button class="story-back-button" onclick="goBackToCarousel()">
+                    ← Volver al carrusel
+                </button>
+            </div>
         </div>
     </section>
 
@@ -272,6 +325,46 @@
 
             <div class="story-date">
                 [Fecha: DD de Mes de Año]
+            </div>
+
+            <!-- Botón para volver al carrusel -->
+            <div class="story-back-button-container">
+                <button class="story-back-button" onclick="goBackToCarousel()">
+                    ← Volver al carrusel
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+        HISTORIA 7
+        Esta historia se abre al hacer click en la séptima imagen del carrusel
+        ============================================ -->
+    <section class="story-section" id="historia7">
+        <div class="story-container">
+            <h2 class="story-title">[Título de la Historia 7]</h2>
+
+            <div class="story-image-container">
+                <img src="imagenes/historia7.jpg" alt="Historia 7" class="story-image">
+                <!-- CAMBIA ESTA IMAGEN -->
+            </div>
+
+            <div class="story-text">
+                <p>
+                    [Escribe aquí tu historia. Esta es la séptima historia relacionada
+                    con la séptima imagen del carrusel.]
+                </p>
+            </div>
+
+            <div class="story-date">
+                [Fecha: DD de Mes de Año]
+            </div>
+
+            <!-- Botón para volver al carrusel -->
+            <div class="story-back-button-container">
+                <button class="story-back-button" onclick="goBackToCarousel()">
+                    ← Volver al carrusel
+                </button>
             </div>
         </div>
     </section>

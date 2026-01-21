@@ -4,156 +4,327 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuestra Historia</title>
-    <!-- Enlace al archivo CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- ============================================
-        PORTADA - Título principal y frase corta
+        LANDING PAGE - Carrusel Circular
         ============================================ -->
-    <section class="portada">
-        <div class="portada-contenido">
-            <!-- CAMBIAR: Título principal de la historia -->
-            <h1 class="titulo-principal">[Nuestro Título Especial]</h1>
-            <!-- CAMBIAR: Frase corta y emotiva para la portada -->
-            <p class="frase-portada">[Una frase hermosa que resuma el sentimiento]</p>
+    <section class="landing" id="landing">
+        <div class="landing-content">
+            <!-- Texto central del carrusel -->
+            <div class="landing-text">
+                <h1 class="landing-title">Nuestra historia</h1>
+                <p class="landing-subtitle">Scroll para explorar</p>
+            </div>
+
+            <!-- Carrusel circular de imágenes -->
+            <!-- 
+                INSTRUCCIONES PARA PERSONALIZAR:
+                1. Reemplaza las rutas de las imágenes (ej: "imagenes/foto1.jpg")
+                2. Agrega o quita elementos .carousel-item según necesites
+                3. Cada imagen debe tener un data-story que coincida con el id de una historia
+                4. El número de imágenes puede variar, el código se adaptará automáticamente
+            -->
+            <div class="carousel-container">
+                <div class="carousel-wheel" id="carouselWheel">
+                    <!-- 
+                        IMAGEN 1 DEL CARRUSEL
+                        CAMBIA ESTA IMAGEN: Reemplaza "imagenes/foto1.jpg" con tu imagen
+                        data-story: Debe coincidir con el id de la historia correspondiente
+                    -->
+                    <div class="carousel-item" data-story="historia1">
+                        <img src="imagenes/foto1.jpg" alt="Historia 1" class="carousel-image">
+                        <!-- CAMBIA ESTA IMAGEN -->
+                    </div>
+
+                    <!-- 
+                        IMAGEN 2 DEL CARRUSEL
+                        CAMBIA ESTA IMAGEN: Reemplaza "imagenes/foto2.jpg" con tu imagen
+                    -->
+                    <div class="carousel-item" data-story="historia2">
+                        <img src="imagenes/foto2.jpg" alt="Historia 2" class="carousel-image">
+                        <!-- CAMBIA ESTA IMAGEN -->
+                    </div>
+
+                    <!-- 
+                        IMAGEN 3 DEL CARRUSEL
+                        CAMBIA ESTA IMAGEN: Reemplaza "imagenes/foto3.jpg" con tu imagen
+                    -->
+                    <div class="carousel-item" data-story="historia3">
+                        <img src="imagenes/foto3.jpg" alt="Historia 3" class="carousel-image">
+                        <!-- CAMBIA ESTA IMAGEN -->
+                    </div>
+
+                    <!-- 
+                        IMAGEN 4 DEL CARRUSEL
+                        CAMBIA ESTA IMAGEN: Reemplaza "imagenes/foto4.jpg" con tu imagen
+                    -->
+                    <div class="carousel-item" data-story="historia4">
+                        <img src="imagenes/foto4.jpg" alt="Historia 4" class="carousel-image">
+                        <!-- CAMBIA ESTA IMAGEN -->
+                    </div>
+
+                    <!-- 
+                        IMAGEN 5 DEL CARRUSEL
+                        CAMBIA ESTA IMAGEN: Reemplaza "imagenes/foto5.jpg" con tu imagen
+                    -->
+                    <div class="carousel-item" data-story="historia5">
+                        <img src="imagenes/foto5.jpg" alt="Historia 5" class="carousel-image">
+                        <!-- CAMBIA ESTA IMAGEN -->
+                    </div>
+
+                    <!-- 
+                        IMAGEN 6 DEL CARRUSEL
+                        CAMBIA ESTA IMAGEN: Reemplaza "imagenes/foto6.jpg" con tu imagen
+                    -->
+                    <div class="carousel-item" data-story="historia6">
+                        <img src="imagenes/foto6.jpg" alt="Historia 6" class="carousel-image">
+                        <!-- CAMBIA ESTA IMAGEN -->
+                    </div>
+
+                    <!-- 
+                        PARA AGREGAR MÁS IMÁGENES:
+                        Copia el bloque completo de .carousel-item (desde <div hasta </div>)
+                        y pégalo antes del cierre de .carousel-wheel
+                        Asegúrate de cambiar:
+                        - La ruta de la imagen (src)
+                        - El data-story (debe coincidir con un id de historia)
+                        - El alt de la imagen
+                    -->
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- ============================================
-        SECCIÓN 1: Cómo nos conocimos
+        HISTORIA 1
+        Esta historia se abre al hacer click en la primera imagen del carrusel
         ============================================ -->
-    <section class="seccion" id="como-nos-conocimos">
-        <div class="contenedor">
-            <!-- CAMBIAR: Título de esta sección -->
-            <h2 class="titulo-seccion">Cómo nos conocimos</h2>
-            
-            <!-- CAMBIAR: Imagen de esta sección -->
-            <!-- Reemplazar "imagen1.jpg" con el nombre de tu imagen -->
-            <!-- Formato recomendado: JPG o PNG -->
-            <div class="imagen-contenedor">
-                <img src="imagenes/imagen1.jpg" alt="Cómo nos conocimos" class="imagen-seccion">
+    <section class="story-section" id="historia1">
+        <div class="story-container">
+            <!-- 
+                CAMBIAR: Título de esta historia
+                Este título aparecerá en la parte superior de la historia
+            -->
+            <h2 class="story-title">[Título de la Historia 1]</h2>
+
+            <!-- 
+                CAMBIAR: Imagen principal de esta historia
+                Reemplaza "imagenes/historia1.jpg" con tu imagen
+                Esta imagen representa la historia relacionada con la primera imagen del carrusel
+            -->
+            <div class="story-image-container">
+                <img src="imagenes/historia1.jpg" alt="Historia 1" class="story-image">
+                <!-- CAMBIA ESTA IMAGEN -->
             </div>
-            
-            <!-- CAMBIAR: Texto de la historia -->
-            <div class="texto-seccion">
+
+            <!-- 
+                CAMBIAR: Texto de la historia
+                Escribe aquí el texto completo de esta historia
+                Puedes usar múltiples párrafos si lo deseas
+            -->
+            <div class="story-text">
                 <p>
-                    [Escribe aquí la historia de cómo se conocieron. 
-                    Puedes incluir detalles como el lugar, la fecha, 
-                    las primeras impresiones, etc.]
+                    [Escribe aquí tu historia. Puedes escribir tanto como quieras.
+                    Este es el espacio para contar todos los detalles de este momento especial.
+                    Puedes incluir sentimientos, recuerdos, anécdotas, etc.]
                 </p>
-                <!-- CAMBIAR: Fecha importante (opcional) -->
-                <p class="fecha-importante">[Fecha: DD de Mes de Año]</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================
-        SECCIÓN 2: Cuando nos hicimos novias
-        ============================================ -->
-    <section class="seccion seccion-alternada" id="cuando-nos-hicimos-novias">
-        <div class="contenedor">
-            <!-- CAMBIAR: Título de esta sección -->
-            <h2 class="titulo-seccion">Cuando nos hicimos novias</h2>
-            
-            <!-- CAMBIAR: Imagen de esta sección -->
-            <div class="imagen-contenedor">
-                <img src="imagenes/imagen2.jpg" alt="Cuando nos hicimos novias" class="imagen-seccion">
-            </div>
-            
-            <!-- CAMBIAR: Texto de la historia -->
-            <div class="texto-seccion">
                 <p>
-                    [Cuenta la historia del momento especial cuando 
-                    decidieron ser novias. Incluye detalles emotivos, 
-                    cómo se sintieron, qué dijeron, etc.]
+                    [Puedes agregar más párrafos si necesitas más espacio para contar tu historia.
+                    Simplemente copia este bloque de <p> y pégalo aquí.]
                 </p>
-                <!-- CAMBIAR: Fecha importante -->
-                <p class="fecha-importante">[Fecha: DD de Mes de Año]</p>
+            </div>
+
+            <!-- 
+                CAMBIAR: Fecha de esta historia (opcional)
+                Si no quieres incluir fecha, puedes eliminar este bloque completo
+            -->
+            <div class="story-date">
+                [Fecha: DD de Mes de Año]
             </div>
         </div>
     </section>
 
     <!-- ============================================
-        SECCIÓN 3: Momento importante (ejemplo)
-        Puedes copiar esta sección completa para agregar más momentos
+        HISTORIA 2
+        Esta historia se abre al hacer click en la segunda imagen del carrusel
         ============================================ -->
-    <section class="seccion" id="momento-importante-1">
-        <div class="contenedor">
-            <!-- CAMBIAR: Título de este momento especial -->
-            <h2 class="titulo-seccion">[Título del Momento Especial]</h2>
-            
-            <!-- CAMBIAR: Imagen de este momento -->
-            <div class="imagen-contenedor">
-                <img src="imagenes/imagen3.jpg" alt="Momento especial" class="imagen-seccion">
+    <section class="story-section story-alternate" id="historia2">
+        <div class="story-container">
+            <h2 class="story-title">[Título de la Historia 2]</h2>
+
+            <div class="story-image-container">
+                <img src="imagenes/historia2.jpg" alt="Historia 2" class="story-image">
+                <!-- CAMBIA ESTA IMAGEN -->
             </div>
-            
-            <!-- CAMBIAR: Texto de este momento -->
-            <div class="texto-seccion">
+
+            <div class="story-text">
                 <p>
-                    [Describe este momento importante en su relación. 
-                    Puede ser un viaje, un aniversario, una celebración, 
-                    o cualquier momento que quieras recordar.]
+                    [Escribe aquí tu historia. Esta es la segunda historia relacionada
+                    con la segunda imagen del carrusel.]
                 </p>
-                <!-- CAMBIAR: Fecha importante -->
-                <p class="fecha-importante">[Fecha: DD de Mes de Año]</p>
+            </div>
+
+            <div class="story-date">
+                [Fecha: DD de Mes de Año]
             </div>
         </div>
     </section>
 
     <!-- ============================================
-        SECCIÓN 4: Otro momento importante (ejemplo)
-        Copia esta sección si necesitas más momentos
+        HISTORIA 3
+        Esta historia se abre al hacer click en la tercera imagen del carrusel
         ============================================ -->
-    <section class="seccion seccion-alternada" id="momento-importante-2">
-        <div class="contenedor">
-            <!-- CAMBIAR: Título de este momento especial -->
-            <h2 class="titulo-seccion">[Título de Otro Momento Especial]</h2>
-            
-            <!-- CAMBIAR: Imagen de este momento -->
-            <div class="imagen-contenedor">
-                <img src="imagenes/imagen4.jpg" alt="Otro momento especial" class="imagen-seccion">
+    <section class="story-section" id="historia3">
+        <div class="story-container">
+            <h2 class="story-title">[Título de la Historia 3]</h2>
+
+            <div class="story-image-container">
+                <img src="imagenes/historia3.jpg" alt="Historia 3" class="story-image">
+                <!-- CAMBIA ESTA IMAGEN -->
             </div>
-            
-            <!-- CAMBIAR: Texto de este momento -->
-            <div class="texto-seccion">
+
+            <div class="story-text">
                 <p>
-                    [Describe otro momento importante. Recuerda que puedes 
-                    agregar tantas secciones como quieras copiando esta estructura.]
+                    [Escribe aquí tu historia. Esta es la tercera historia relacionada
+                    con la tercera imagen del carrusel.]
                 </p>
-                <!-- CAMBIAR: Fecha importante -->
-                <p class="fecha-importante">[Fecha: DD de Mes de Año]</p>
+            </div>
+
+            <div class="story-date">
+                [Fecha: DD de Mes de Año]
             </div>
         </div>
     </section>
 
     <!-- ============================================
-        SECCIÓN FINAL: Mensaje emotivo
+        HISTORIA 4
+        Esta historia se abre al hacer click en la cuarta imagen del carrusel
         ============================================ -->
-    <section class="seccion-final">
-        <div class="contenedor">
-            <!-- CAMBIAR: Mensaje final emotivo -->
-            <h2 class="titulo-final">[Un Título Final Emotivo]</h2>
-            <div class="mensaje-final">
+    <section class="story-section story-alternate" id="historia4">
+        <div class="story-container">
+            <h2 class="story-title">[Título de la Historia 4]</h2>
+
+            <div class="story-image-container">
+                <img src="imagenes/historia4.jpg" alt="Historia 4" class="story-image">
+                <!-- CAMBIA ESTA IMAGEN -->
+            </div>
+
+            <div class="story-text">
                 <p>
-                    [Escribe aquí un mensaje final emotivo y personal. 
-                    Puede ser sobre el futuro, sobre el amor que sienten, 
-                    sobre lo que significa esta relación para ti, etc.]
+                    [Escribe aquí tu historia. Esta es la cuarta historia relacionada
+                    con la cuarta imagen del carrusel.]
                 </p>
-                <!-- CAMBIAR: Firma o nombre especial (opcional) -->
-                <p class="firma">Con todo mi amor,<br>[Tu nombre]</p>
+            </div>
+
+            <div class="story-date">
+                [Fecha: DD de Mes de Año]
             </div>
         </div>
     </section>
 
     <!-- ============================================
-        FOOTER: Información adicional (opcional)
+        HISTORIA 5
+        Esta historia se abre al hacer click en la quinta imagen del carrusel
+        ============================================ -->
+    <section class="story-section" id="historia5">
+        <div class="story-container">
+            <h2 class="story-title">[Título de la Historia 5]</h2>
+
+            <div class="story-image-container">
+                <img src="imagenes/historia5.jpg" alt="Historia 5" class="story-image">
+                <!-- CAMBIA ESTA IMAGEN -->
+            </div>
+
+            <div class="story-text">
+                <p>
+                    [Escribe aquí tu historia. Esta es la quinta historia relacionada
+                    con la quinta imagen del carrusel.]
+                </p>
+            </div>
+
+            <div class="story-date">
+                [Fecha: DD de Mes de Año]
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+        HISTORIA 6
+        Esta historia se abre al hacer click en la sexta imagen del carrusel
+        ============================================ -->
+    <section class="story-section story-alternate" id="historia6">
+        <div class="story-container">
+            <h2 class="story-title">[Título de la Historia 6]</h2>
+
+            <div class="story-image-container">
+                <img src="imagenes/historia6.jpg" alt="Historia 6" class="story-image">
+                <!-- CAMBIA ESTA IMAGEN -->
+            </div>
+
+            <div class="story-text">
+                <p>
+                    [Escribe aquí tu historia. Esta es la sexta historia relacionada
+                    con la sexta imagen del carrusel.]
+                </p>
+            </div>
+
+            <div class="story-date">
+                [Fecha: DD de Mes de Año]
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+        SECCIÓN FINAL - Mensaje de cierre
+        ============================================ -->
+    <section class="story-final" id="final">
+        <div class="story-container">
+            <!-- 
+                CAMBIAR: Título final
+                Un mensaje emotivo para cerrar todas las historias
+            -->
+            <h2 class="final-title">[Título Final Emotivo]</h2>
+
+            <!-- 
+                CAMBIAR: Mensaje final
+                Un texto especial para cerrar el regalo
+            -->
+            <div class="final-text">
+                <p>
+                    [Escribe aquí un mensaje final emotivo. Puede ser sobre el futuro,
+                    sobre el amor que sienten, sobre lo que significa esta relación, etc.]
+                </p>
+            </div>
+
+            <!-- 
+                CAMBIAR: Firma (opcional)
+                Si no quieres incluir firma, elimina este bloque
+            -->
+            <div class="final-signature">
+                Con todo mi amor,<br>
+                [Tu nombre]
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+        FOOTER
         ============================================ -->
     <footer class="footer">
-        <div class="contenedor">
-            <!-- CAMBIAR: Texto del footer (opcional) -->
-            <p>[Texto opcional para el footer, como "Hecho con amor" o una fecha especial]</p>
+        <div class="footer-content">
+            <!-- 
+                CAMBIAR: Texto del footer (opcional)
+                Puedes dejar un mensaje simple o eliminar este bloque
+            -->
+            <p>[Hecho con amor - 2024]</p>
         </div>
     </footer>
+
+    <!-- ============================================
+        JavaScript
+        ============================================ -->
+    <script src="script.js"></script>
 </body>
 </html>

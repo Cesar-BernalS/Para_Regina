@@ -9,17 +9,19 @@
     box-sizing: border-box;
 }
 
-/* Variables CSS para colores y estilos principales */
+/* Variables CSS para personalización fácil */
 /* CAMBIAR: Puedes modificar estos colores para personalizar el diseño */
 :root {
-    --color-principal: #d4a5a5;        /* Color principal romántico (rosa suave) */
-    --color-secundario: #f5e6e6;      /* Color secundario (rosa muy claro) */
-    --color-texto: #4a4a4a;           /* Color del texto principal */
-    --color-texto-claro: #666666;     /* Color del texto secundario */
-    --color-fondo: #ffffff;            /* Color de fondo principal */
-    --color-fondo-alternado: #fafafa; /* Color de fondo alternado */
-    --fuente-titulo: 'Georgia', serif; /* Fuente para títulos (serif elegante) */
-    --fuente-texto: 'Arial', sans-serif; /* Fuente para textos */
+    --color-principal: #d4a5a5;           /* Color principal romántico (rosa suave) */
+    --color-secundario: #f5e6e6;          /* Color secundario (rosa muy claro) */
+    --color-texto: #4a4a4a;               /* Color del texto principal */
+    --color-texto-claro: #666666;         /* Color del texto secundario */
+    --color-fondo: #ffffff;                /* Color de fondo principal */
+    --color-fondo-alternado: #fafafa;     /* Color de fondo alternado */
+    --color-fondo-landing: #f8f3f3;       /* Color de fondo del landing */
+    --fuente-titulo: 'Georgia', serif;    /* Fuente para títulos */
+    --fuente-texto: 'Arial', sans-serif;   /* Fuente para textos */
+    --radio-carrusel: 300px;               /* Radio del carrusel circular (ajustable) */
 }
 
 /* Estilos del cuerpo de la página */
@@ -31,149 +33,243 @@ body {
     /* Suaviza el renderizado de fuentes */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-}
-
-/* Contenedor principal para centrar el contenido */
-.contenedor {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 20px;
+    /* Scroll suave en toda la página */
+    scroll-behavior: smooth;
+    /* Evita el scroll horizontal */
+    overflow-x: hidden;
 }
 
 /* ============================================
-   PORTADA - Sección inicial
+   LANDING PAGE - Pantalla inicial
    ============================================ */
 
-.portada {
-    /* Altura completa de la pantalla en desktop */
+.landing {
+    /* Altura completa de la pantalla */
     min-height: 100vh;
-    /* Centra el contenido verticalmente */
+    width: 100%;
+    /* Centra el contenido */
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Fondo con gradiente suave */
-    background: linear-gradient(135deg, var(--color-secundario) 0%, var(--color-principal) 100%);
-    /* Padding para evitar que el texto toque los bordes */
+    /* Fondo suave */
+    background: linear-gradient(135deg, var(--color-fondo-landing) 0%, var(--color-secundario) 100%);
+    /* Posición relativa para el carrusel */
+    position: relative;
+    /* Padding para evitar que el contenido toque los bordes */
     padding: 40px 20px;
-    /* Centra el texto */
-    text-align: center;
 }
 
-.portada-contenido {
+.landing-content {
+    width: 100%;
+    max-width: 1200px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Texto central del landing */
+.landing-text {
+    position: absolute;
+    z-index: 10;
+    text-align: center;
     /* Animación suave al cargar */
     animation: fadeInUp 1s ease-out;
+    /* Permite que el scroll pase a través del texto */
+    pointer-events: none;
 }
 
-/* Título principal de la portada */
-.titulo-principal {
+.landing-title {
     font-family: var(--fuente-titulo);
     font-size: 3.5rem;
-    color: #ffffff;
-    margin-bottom: 20px;
-    /* Sombra suave para legibilidad */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    color: var(--color-principal);
+    margin-bottom: 15px;
     font-weight: normal;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.landing-subtitle {
+    font-size: 1.2rem;
+    color: var(--color-texto-claro);
+    font-style: italic;
     letter-spacing: 2px;
 }
 
-/* Frase corta de la portada */
-.frase-portada {
-    font-size: 1.3rem;
-    color: #ffffff;
-    font-style: italic;
-    /* Opacidad ligeramente reducida para efecto elegante */
-    opacity: 0.95;
-    max-width: 600px;
-    margin: 0 auto;
+/* ============================================
+   CARRUSEL CIRCULAR
+   ============================================ */
+
+.carousel-container {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Permite interacción con el carrusel */
+    pointer-events: auto;
+}
+
+/* Rueda del carrusel - contenedor que rota */
+.carousel-wheel {
+    position: relative;
+    width: calc(var(--radio-carrusel) * 2);
+    height: calc(var(--radio-carrusel) * 2);
+    /* Transición suave para la rotación */
+    transition: transform 0.1s ease-out;
+    /* Permite interacción con las imágenes */
+    pointer-events: auto;
+    /* Asegura que el carrusel esté centrado */
+    transform-origin: center center;
+}
+
+/* Cada elemento del carrusel (imagen) */
+.carousel-item {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    /* Centra el elemento desde su esquina superior izquierda */
+    top: 50%;
+    left: 50%;
+    margin-top: -75px;
+    margin-left: -75px;
+    /* Transform origin en el centro del carrusel */
+    transform-origin: center center;
+    /* Cursor pointer para indicar que es clickeable */
+    cursor: pointer;
+    /* Transición suave para efectos hover */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Bordes redondeados */
+    border-radius: 10px;
+    /* Sombra inicial */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    /* Evita que la imagen se desborde */
+    overflow: hidden;
+    /* Fondo mientras carga la imagen */
+    background-color: var(--color-secundario);
+}
+
+/* Imagen dentro del carrusel */
+.carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Transición suave */
+    transition: transform 0.3s ease;
+    /* Display block para evitar espacios extraños */
+    display: block;
+}
+
+/* Efecto hover en las imágenes del carrusel */
+.carousel-item:hover {
+    /* Escala la imagen al hacer hover */
+    transform: scale(1.15);
+    /* Sombra más pronunciada */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    /* Z-index más alto para que aparezca por encima */
+    z-index: 100;
+}
+
+/* Efecto adicional en la imagen al hacer hover */
+.carousel-item:hover .carousel-image {
+    transform: scale(1.05);
 }
 
 /* ============================================
-   SECCIONES PRINCIPALES
+   SECCIONES DE HISTORIAS
    ============================================ */
 
-.seccion {
-    /* Padding vertical generoso para espaciado */
-    padding: 80px 0;
+.story-section {
+    /* Padding vertical generoso */
+    padding: 100px 0;
+    /* Fondo principal */
     background-color: var(--color-fondo);
+    /* Scroll suave al navegar */
+    scroll-margin-top: 0;
 }
 
-/* Sección con fondo alternado para crear contraste visual */
-.seccion-alternada {
+/* Sección con fondo alternado para crear contraste */
+.story-alternate {
     background-color: var(--color-fondo-alternado);
 }
 
-/* Título de cada sección */
-.titulo-seccion {
-    font-family: var(--fuente-titulo);
-    font-size: 2.5rem;
-    color: var(--color-principal);
-    text-align: center;
-    margin-bottom: 40px;
-    font-weight: normal;
-    letter-spacing: 1px;
+/* Contenedor de cada historia */
+.story-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 30px;
 }
 
-/* ============================================
-   CONTENEDOR DE IMÁGENES
-   ============================================ */
-
-.imagen-contenedor {
-    /* Centra la imagen */
+/* Título de cada historia */
+.story-title {
+    font-family: var(--fuente-titulo);
+    font-size: 2.8rem;
+    color: var(--color-principal);
     text-align: center;
-    margin: 40px 0;
-    /* Bordes redondeados suaves */
-    border-radius: 10px;
-    /* Sombra suave para profundidad */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    /* Evita que la imagen se desborde */
+    margin-bottom: 50px;
+    font-weight: normal;
+    letter-spacing: 2px;
+    /* Animación suave al aparecer */
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* Contenedor de la imagen principal de la historia */
+.story-image-container {
+    text-align: center;
+    margin: 50px 0;
+    /* Bordes redondeados */
+    border-radius: 15px;
+    /* Sombra suave */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    /* Evita desbordamiento */
     overflow: hidden;
+    /* Fondo mientras carga */
     background-color: var(--color-secundario);
     padding: 10px;
 }
 
-/* Estilos de las imágenes */
-.imagen-seccion {
-    /* Ancho máximo para que no se vean demasiado grandes */
+/* Imagen principal de la historia */
+.story-image {
     max-width: 100%;
     height: auto;
-    /* Bordes redondeados */
-    border-radius: 8px;
-    /* Transición suave al hacer hover (en desktop) */
+    border-radius: 10px;
+    /* Transición suave */
     transition: transform 0.3s ease;
-    /* Display block para evitar espacios extraños */
     display: block;
     margin: 0 auto;
 }
 
-/* Efecto hover en desktop (solo funciona con mouse) */
+/* Efecto hover en la imagen de la historia (solo desktop) */
 @media (hover: hover) {
-    .imagen-seccion:hover {
+    .story-image:hover {
         transform: scale(1.02);
     }
 }
 
-/* ============================================
-   TEXTOS DE LAS SECCIONES
-   ============================================ */
-
-.texto-seccion {
-    font-size: 1.1rem;
-    line-height: 1.9;
+/* Texto de la historia */
+.story-text {
+    font-size: 1.15rem;
+    line-height: 2;
     color: var(--color-texto);
     text-align: justify;
-    /* Padding horizontal para mejor legibilidad */
-    padding: 0 10px;
-    max-width: 700px;
+    max-width: 750px;
     margin: 0 auto;
+    /* Animación suave al aparecer */
+    animation: fadeInUp 1s ease-out;
 }
 
-/* Fechas importantes destacadas */
-.fecha-importante {
+.story-text p {
+    margin-bottom: 20px;
+}
+
+/* Fecha de la historia */
+.story-date {
     font-size: 1rem;
     color: var(--color-principal);
     font-weight: bold;
     text-align: center;
-    margin-top: 25px;
+    margin-top: 40px;
     font-style: italic;
     letter-spacing: 1px;
 }
@@ -182,39 +278,43 @@ body {
    SECCIÓN FINAL
    ============================================ */
 
-.seccion-final {
-    /* Padding extra para la sección final */
-    padding: 100px 0;
+.story-final {
+    padding: 120px 0;
     /* Fondo con gradiente para destacar */
     background: linear-gradient(135deg, var(--color-principal) 0%, var(--color-secundario) 100%);
     text-align: center;
 }
 
-.titulo-final {
+.final-title {
     font-family: var(--fuente-titulo);
-    font-size: 2.8rem;
+    font-size: 3rem;
     color: #ffffff;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
     font-weight: normal;
-    letter-spacing: 1px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-.mensaje-final {
-    font-size: 1.2rem;
+.final-text {
+    font-size: 1.25rem;
     color: #ffffff;
-    line-height: 2;
-    max-width: 700px;
+    line-height: 2.2;
+    max-width: 800px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 30px;
 }
 
-/* Firma al final del mensaje */
-.firma {
-    margin-top: 40px;
+.final-text p {
+    margin-bottom: 25px;
+}
+
+.final-signature {
+    margin-top: 50px;
     font-size: 1.1rem;
     font-style: italic;
+    color: #ffffff;
     opacity: 0.95;
+    letter-spacing: 1px;
 }
 
 /* ============================================
@@ -224,16 +324,22 @@ body {
 .footer {
     background-color: var(--color-texto);
     color: #ffffff;
-    padding: 30px 0;
+    padding: 40px 0;
     text-align: center;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+}
+
+.footer-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 30px;
 }
 
 /* ============================================
    ANIMACIONES
    ============================================ */
 
-/* Animación de entrada suave para la portada */
+/* Animación de entrada suave desde abajo */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -250,33 +356,52 @@ body {
    ============================================ */
 
 @media screen and (max-width: 768px) {
-    /* Título principal más pequeño en tablet */
-    .titulo-principal {
-        font-size: 2.8rem;
+    /* Ajusta el radio del carrusel en tablet */
+    :root {
+        --radio-carrusel: 220px;
     }
-    
-    /* Frase de portada más pequeña */
-    .frase-portada {
-        font-size: 1.1rem;
+
+    /* Título del landing más pequeño */
+    .landing-title {
+        font-size: 2.5rem;
+        letter-spacing: 2px;
     }
-    
-    /* Títulos de sección más pequeños */
-    .titulo-seccion {
-        font-size: 2rem;
+
+    /* Subtítulo más pequeño */
+    .landing-subtitle {
+        font-size: 1rem;
     }
-    
-    /* Título final más pequeño */
-    .titulo-final {
+
+    /* Imágenes del carrusel más pequeñas */
+    .carousel-item {
+        width: 120px;
+        height: 120px;
+        margin-top: -60px;
+        margin-left: -60px;
+    }
+
+    /* Títulos de historias más pequeños */
+    .story-title {
         font-size: 2.2rem;
     }
-    
-    /* Padding reducido en secciones */
-    .seccion {
-        padding: 60px 0;
+
+    /* Título final más pequeño */
+    .final-title {
+        font-size: 2.4rem;
     }
-    
-    .seccion-final {
+
+    /* Padding reducido en secciones */
+    .story-section {
         padding: 80px 0;
+    }
+
+    .story-final {
+        padding: 100px 0;
+    }
+
+    /* Contenedor con menos padding */
+    .story-container {
+        padding: 0 25px;
     }
 }
 
@@ -285,58 +410,71 @@ body {
    ============================================ */
 
 @media screen and (max-width: 480px) {
-    /* Título principal aún más pequeño en celular */
-    .titulo-principal {
-        font-size: 2rem;
+    /* Radio del carrusel más pequeño en móvil */
+    :root {
+        --radio-carrusel: 180px;
+    }
+
+    /* Título del landing aún más pequeño */
+    .landing-title {
+        font-size: 1.8rem;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+    }
+
+    /* Subtítulo más pequeño */
+    .landing-subtitle {
+        font-size: 0.9rem;
         letter-spacing: 1px;
     }
-    
-    /* Frase de portada más pequeña */
-    .frase-portada {
-        font-size: 1rem;
-        padding: 0 10px;
+
+    /* Imágenes del carrusel más pequeñas en móvil */
+    .carousel-item {
+        width: 100px;
+        height: 100px;
+        margin-top: -50px;
+        margin-left: -50px;
     }
-    
-    /* Títulos de sección más pequeños */
-    .titulo-seccion {
-        font-size: 1.6rem;
-        padding: 0 15px;
-    }
-    
-    /* Título final más pequeño */
-    .titulo-final {
+
+    /* Títulos de historias más pequeños */
+    .story-title {
         font-size: 1.8rem;
+        margin-bottom: 35px;
     }
-    
-    /* Texto de secciones más pequeño */
-    .texto-seccion {
+
+    /* Texto de historias más pequeño */
+    .story-text {
         font-size: 1rem;
         text-align: left;
-        padding: 0 5px;
     }
-    
-    /* Mensaje final más pequeño */
-    .mensaje-final {
-        font-size: 1rem;
+
+    /* Título final más pequeño */
+    .final-title {
+        font-size: 2rem;
     }
-    
+
+    /* Texto final más pequeño */
+    .final-text {
+        font-size: 1.1rem;
+    }
+
     /* Padding reducido en secciones */
-    .seccion {
-        padding: 50px 0;
-    }
-    
-    .seccion-final {
+    .story-section {
         padding: 60px 0;
     }
-    
-    /* Contenedor con menos padding en móvil */
-    .contenedor {
-        padding: 0 15px;
+
+    .story-final {
+        padding: 80px 0;
     }
-    
-    /* Imágenes con menos margen en móvil */
-    .imagen-contenedor {
-        margin: 30px 0;
+
+    /* Contenedor con menos padding */
+    .story-container {
+        padding: 0 20px;
+    }
+
+    /* Imágenes con menos margen */
+    .story-image-container {
+        margin: 35px 0;
         padding: 5px;
     }
 }
@@ -351,18 +489,26 @@ body {
     color: #ffffff;
 }
 
-/* Estilo para enlaces (si decides agregar algunos) */
-a {
-    color: var(--color-principal);
-    text-decoration: none;
-    transition: opacity 0.3s ease;
-}
-
-a:hover {
-    opacity: 0.7;
-}
-
 /* Suaviza el scroll en navegadores que lo soporten */
 html {
     scroll-behavior: smooth;
+}
+
+/* Estilo para cuando se está navegando a una historia */
+.story-section:target {
+    scroll-margin-top: 0;
+}
+
+/* Ajustes para pantallas muy grandes */
+@media screen and (min-width: 1400px) {
+    :root {
+        --radio-carrusel: 350px;
+    }
+
+    .carousel-item {
+        width: 180px;
+        height: 180px;
+        margin-top: -90px;
+        margin-left: -90px;
+    }
 }

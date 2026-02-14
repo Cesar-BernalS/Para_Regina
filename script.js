@@ -150,7 +150,7 @@ RULETA DE FOTOS - CONSTRUCCIÓN DINÁMICA
 function initCarousel() {
     const photoCount = photoData.length;
     const angleStep = 360 / photoCount;
-    const radius = window.innerWidth <= 600 ? 130 : 200;
+    const radius = window.innerWidth <= 600 ? 160 : 280;
 
     photoData.forEach((photo, index) => {
         const angle = angleStep * index;

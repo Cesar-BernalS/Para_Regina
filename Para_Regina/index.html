@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Day We Got Together</title>
+    
+    <!-- ===== GOOGLE FONTS - TIPOGRAFÍA ROMÁNTICA ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- ===== HOJAS DE ESTILO ===== -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- ===== CONTENEDOR PRINCIPAL - GESTIÓN DE SECCIONES ===== -->
+    <main class="app-container">
+        
+        <!-- ===== EFECTO CORAZONES CAYENDO (z-index bajo, no interfiere con clics) ===== -->
+        <div id="hearts-container" class="hearts-container" aria-hidden="true"></div>
+        
+        <!-- ===== SECCIÓN CANDADO - PANTALLA INICIAL CON CONTRASEÑA ===== -->
+        <section id="lock-screen" class="lock-screen active">
+            <div class="lock-wrapper">
+                
+                <!-- ===== CANDADO SVG - CORAZÓN CON ARCO ===== -->
+                <div id="lock-container" class="lock-container">
+                    <!-- Arco del candado - elemento separado para animación de apertura -->
+                    <svg class="lock-shackle" id="lock-shackle" viewBox="0 0 120 60" aria-hidden="true">
+                        <defs>
+                            <linearGradient id="shackleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#e8a4b8;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#f5d0d9;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#e8a4b8;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M 15 55 
+                                Q 15 5 60 5 
+                                Q 105 5 105 55" 
+                            fill="none" 
+                            stroke="url(#shackleGradient)" 
+                            stroke-width="8" 
+                            stroke-linecap="round"/>
+                    </svg>
+                    <!-- Cuerpo del candado - corazón -->
+                    <svg class="lock-body" id="lock-body" viewBox="0 0 100 90" aria-hidden="true">
+                        <defs>
+                            <radialGradient id="heartGradient" cx="50%" cy="40%" r="60%">
+                                <stop offset="0%" style="stop-color:#fce4ec;stop-opacity:1" />
+                                <stop offset="40%" style="stop-color:#f8bbd9;stop-opacity:1" />
+                                <stop offset="70%" style="stop-color:#f48fb1;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#ec407a;stop-opacity:1" />
+                            </radialGradient>
+                            <filter id="innerShadow" x="-20%" y="-20%" width="140%" height="140%">
+                                <feOffset dx="2" dy="2"/>
+                                <feGaussianBlur stdDeviation="2" result="blur"/>
+                                <feFlood flood-color="#000" flood-opacity="0.15"/>
+                                <feComposite in2="blur" operator="in"/>
+                                <feComposite in2="SourceAlpha" operator="in"/>
+                                <feMerge>
+                                    <feMergeNode/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                            <filter id="outerShadow" x="-30%" y="-30%" width="160%" height="160%">
+                                <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#d81b60" flood-opacity="0.25"/>
+                            </filter>
+                            <linearGradient id="glossyHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#fff;stop-opacity:0.6" />
+                                <stop offset="50%" style="stop-color:#fff;stop-opacity:0.15" />
+                                <stop offset="100%" style="stop-color:#fff;stop-opacity:0" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Sombra exterior -->
+                        <path d="M 50 82 
+                                C 20 60 5 35 15 15 
+                                C 25 0 50 5 50 25 
+                                C 50 5 75 0 85 15 
+                                C 95 35 80 60 50 82 Z" 
+                            fill="#ec407a" 
+                            filter="url(#outerShadow)"
+                            opacity="0.3"/>
+                        <!-- Cuerpo principal del corazón -->
+                        <path id="heartPath" 
+                            d="M 50 82 
+                                C 20 60 5 35 15 15 
+                                C 25 0 50 5 50 25 
+                                C 50 5 75 0 85 15 
+                                C 95 35 80 60 50 82 Z" 
+                            fill="url(#heartGradient)" 
+                            filter="url(#innerShadow)"/>
+                        <!-- Efecto glossy (highlight superior) -->
+                        <path d="M 50 82 
+                                C 20 60 5 35 15 15 
+                                C 25 0 50 5 50 25 
+                                C 50 5 75 0 85 15 
+                                C 95 35 80 60 50 82 Z" 
+                            fill="url(#glossyHighlight)"/>
+                    </svg>
+                </div>
+                
+                <!-- ===== TEXTO DEL CANDADO ===== -->
+                <h1 class="lock-title">The Day We Got Together</h1>
+                
+                <!-- ===== FORMULARIO DE CONTRASEÑA ===== -->
+                <form id="password-form" class="password-form" autocomplete="off">
+                    <input type="text" 
+                        id="password-input" 
+                        class="password-input" 
+                        placeholder="Introduce la fecha especial..." 
+                        maxlength="8"
+                        inputmode="numeric"
+                        pattern="[0-9]*"
+                        autocomplete="off">
+                    <button type="submit" class="password-submit" aria-label="Desbloquear">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                            <polyline points="10 17 15 12 10 7"/>
+                            <line x1="15" y1="12" x2="3" y2="12"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </section>
+        
+        <!-- ===== SECCIÓN RULETA DE FOTOS ===== -->
+        <section id="carousel-screen" class="carousel-screen">
+            <div class="carousel-wrapper">
+                <h2 class="carousel-title">Nuestros momentos</h2>
+                
+                <!-- ===== CONTENEDOR DE LA RULETA ===== -->
+                <div class="carousel-container">
+                    <div id="carousel-wheel" class="carousel-wheel">
+                        <!-- Las fotos se insertan dinámicamente via JS -->
+                    </div>
+                </div>
+                
+                <p class="carousel-hint">Usa la rueda del mouse para girar • Haz clic en una foto • Sigue el orden de las fotos en sentido horario</p>
+            </div>
+        </section>
+        
+        <!-- ===== OVERLAYS DE FOTOS - VISOR AMPLIADO ===== -->
+        <!-- Cada overlay muestra una foto en grande con su historia editable -->
+        
+        <!-- ===== HISTORIA FOTO 1 ===== -->
+        <div id="overlay-0" class="photo-overlay" role="dialog" aria-modal="true" aria-label="Ver foto">
+            <div class="overlay-content">
+                <img class="overlay-image" src="" alt="Foto especial">
+                <div class="overlay-story">
+                    <h3>Dia 11 de julio de 2025</h3>
+                    <p>
+                    Escribe aquí la historia detrás de esta foto...
+                    </p>
+                </div>
+                <button class="overlay-back-btn">Volver a la ruleta</button>
+            </div>
+        </div>
+        
+        <!-- ===== HISTORIA FOTO 2 ===== -->
+        <div id="overlay-1" class="photo-overlay" role="dialog" aria-modal="true" aria-label="Ver foto">
+            <div class="overlay-content">
+                <img class="overlay-image" src="" alt="Foto especial">
+                <div class="overlay-story">
+                    <h3>Nuestro momento</h3>
+                    <p>
+                        Escribe aquí la historia detrás de esta foto...
+                    </p>
+                </div>
+                <button class="overlay-back-btn">Volver a la ruleta</button>
+            </div>
+        </div>
+        
+        <!-- ===== HISTORIA FOTO 3 ===== -->
+        <div id="overlay-2" class="photo-overlay" role="dialog" aria-modal="true" aria-label="Ver foto">
+            <div class="overlay-content">
+                <img class="overlay-image" src="" alt="Foto especial">
+                <div class="overlay-story">
+                    <h3>Nuestro momento</h3>
+                    <p>
+                        Escribe aquí la historia detrás de esta foto...
+                    </p>
+                </div>
+                <button class="overlay-back-btn">Volver a la ruleta</button>
+            </div>
+        </div>
+        
+        <!-- ===== HISTORIA FOTO 4 ===== -->
+        <div id="overlay-3" class="photo-overlay" role="dialog" aria-modal="true" aria-label="Ver foto">
+            <div class="overlay-content">
+                <img class="overlay-image" src="" alt="Foto especial">
+                <div class="overlay-story">
+                    <h3>Nuestro momento</h3>
+                    <p>
+                        Escribe aquí la historia detrás de esta foto...
+                    </p>
+                </div>
+                <button class="overlay-back-btn">Volver a la ruleta</button>
+            </div>
+        </div>
+        
+        <!-- ===== HISTORIA FOTO 5 ===== -->
+        <div id="overlay-4" class="photo-overlay" role="dialog" aria-modal="true" aria-label="Ver foto">
+            <div class="overlay-content">
+                <img class="overlay-image" src="" alt="Foto especial">
+                <div class="overlay-story">
+                    <h3>Nuestro momento</h3>
+                    <p>
+                        Escribe aquí la historia detrás de esta foto...
+                    </p>
+                </div>
+                <button class="overlay-back-btn">Volver a la ruleta</button>
+            </div>
+        </div>
+        
+        <!-- ===== HISTORIA FOTO 6 ===== -->
+        <div id="overlay-5" class="photo-overlay" role="dialog" aria-modal="true" aria-label="Ver foto">
+            <div class="overlay-content">
+                <img class="overlay-image" src="" alt="Foto especial">
+                <div class="overlay-story">
+                    <h3>Nuestro momento</h3>
+                    <p>
+                        Escribe aquí la historia detrás de esta foto...
+                    </p>
+                </div>
+                <button class="overlay-back-btn">Volver a la ruleta</button>
+            </div>
+        </div>
+        
+        <!-- ===== HISTORIA FOTO 7 ===== -->
+        <div id="overlay-6" class="photo-overlay" role="dialog" aria-modal="true" aria-label="Ver foto">
+            <div class="overlay-content">
+                <img class="overlay-image" src="" alt="Foto especial">
+                <div class="overlay-story">
+                    <h3>Nuestro momento</h3>
+                    <p>
+                        Escribe aquí la historia detrás de esta foto...
+                    </p>
+                </div>
+                <button class="overlay-back-btn">Volver a la ruleta</button>
+            </div>
+        </div>
+        
+    </main>
+    
+    <!-- ===== SCRIPTS ===== -->
+    <script src="script.js"></script>
+</body>
+</html>
